@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>David's DVD Collection</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="DVDs">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
 <style>
@@ -23,36 +27,44 @@
   --bg:#151413; --panel:#1e1d1b; --fg:#ece9e3; --muted:#a39f97; --line:#34322e;
   --accent:#e08a66; --chip:#2a2825; --flag:#f0cf6a; --flagbg:#3a3215; color-scheme:dark}
 *{box-sizing:border-box}
-html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.45}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
-.wrap{max-width:1000px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 56px}
+body::before{content:"";position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:1000px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-top:28px;padding-bottom:56px}
 h1{font-family:var(--display);font-weight:700;font-size:2rem;letter-spacing:.01em;margin:0;text-wrap:balance}
 .sub{color:var(--muted);margin:4px 0 0}
-.stats{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:14px;font-family:var(--display);color:var(--muted);font-variant-numeric:tabular-nums}
+.stats{display:flex;flex-wrap:wrap;margin-top:14px;font-family:var(--display);color:var(--muted);font-variant-numeric:tabular-nums}
+.stats>span{margin:0 18px 6px 0}
 .stats b{color:var(--fg)}
-.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:12px;margin-top:16px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
-#q{width:100%;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--fg)}
-.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.chips{display:flex;flex-wrap:wrap;gap:6px}
+.bar{position:-webkit-sticky;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-top:12px;padding-bottom:4px;margin-top:16px;border-bottom:1px solid var(--line)}
+.bar>*+*{margin-top:10px}
+#q{width:100%;font:inherit;font-size:16px;-webkit-appearance:none;appearance:none;padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--fg)}
+.row{display:flex;flex-wrap:wrap;align-items:center}
+.row>*{margin:0 8px 8px 0}
+.chips{display:flex;flex-wrap:wrap}
+.chips>*{margin:0 6px 6px 0}
 .chips button,select,.toggle{font-family:var(--display);font-size:.88rem;letter-spacing:.02em;border:1px solid var(--line);background:var(--chip);color:var(--fg);border-radius:999px;padding:4px 11px;cursor:pointer}
 select{border-radius:6px;padding:5px 8px}
+.toggle{-webkit-appearance:none;appearance:none}
 .chips button[aria-pressed="true"],.toggle[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 label.sl{font-family:var(--display);font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
 #list{margin-top:8px}
 details{border-bottom:1px solid var(--line)}
-summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;padding:10px 4px}
+summary{list-style:none;cursor:pointer;display:block;padding:10px 4px;-webkit-tap-highlight-color:transparent}
+.sum{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-gap:2px 12px;gap:2px 12px}
 summary::-webkit-details-marker{display:none}
 .t{font-weight:600;min-width:0}
 .t .yr{font-weight:400;color:var(--muted)}
 .by{grid-column:1;color:var(--muted);font-size:.9rem;min-width:0}
-.tags{grid-column:2;grid-row:1 / span 2;display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.tags{grid-column:2;grid-row:1 / span 2;display:flex;flex-direction:column;align-items:flex-end}
+.tags>*+*{margin-top:4px}
 .tag{font-family:var(--display);font-size:.78rem;letter-spacing:.04em;color:var(--muted);white-space:nowrap}
 .fmt{border:1px solid var(--line);border-radius:4px;padding:0 5px}
 .flag{display:inline-block;font-family:var(--display);font-size:.72rem;letter-spacing:.05em;background:var(--flagbg);color:var(--flag);border-radius:4px;padding:0 5px;margin-left:6px;vertical-align:1px;font-weight:500}
-.body{padding:2px 4px 16px;display:flex;flex-direction:column;gap:14px}
-.film{display:grid;grid-template-columns:110px minmax(0,1fr);gap:4px 14px;font-size:.93rem}
+.body{padding:2px 4px 16px}
+.body>*+*{margin-top:14px}
+.film{display:grid;grid-template-columns:110px minmax(0,1fr);grid-gap:4px 14px;gap:4px 14px;font-size:.93rem}
 .film h3{grid-column:1 / -1;margin:0;font-family:var(--display);font-size:1.05rem;font-weight:700}
 .film dt{font-family:var(--display);font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding-top:2px}
 .film dd{margin:0;min-width:0}
@@ -64,6 +76,8 @@ summary::-webkit-details-marker{display:none}
 .empty{color:var(--muted);padding:24px 4px}
 footer{margin-top:28px;color:var(--muted);font-size:.85rem;max-width:65ch}
 @media (max-width:480px){.film{grid-template-columns:1fr}.film dt{padding-top:6px}}
+@media (min-width:700px){body{font-size:17px}.film{grid-template-columns:130px minmax(0,1fr)}h1{font-size:2.4rem}}
+@media (pointer:coarse){select,.toggle{min-height:44px;padding:8px 14px;font-size:1rem}select{padding:8px 10px}#q{padding:12px 14px;font-size:17px}summary{padding:14px 6px}.film a{display:inline-block;padding:4px 0}}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
 </style>
 </head>
@@ -124,7 +138,7 @@ const GENL=GEN.map(g=>g.toLowerCase());
 const TAGL=[...new Set(ITEMS.flatMap(i=>i._t))];
 [...new Set(ITEMS.map(i=>i.format))].sort().forEach(f=>$("fmt").insertAdjacentHTML("beforeend",`<option>${esc(f)}</option>`));
 [...new Set(ITEMS.map(i=>i._y).filter(Boolean).map(y=>Math.floor(y/10)*10))].sort().forEach(d=>$("dec").insertAdjacentHTML("beforeend",`<option value="${d}">${d}s</option>`));
-$("q").oninput=e=>{st.q=e.target.value.toLowerCase().trim();render()};
+let qt=null;$("q").oninput=e=>{const v=e.target.value;clearTimeout(qt);qt=setTimeout(()=>{st.q=v.toLowerCase().trim();render()},150)};
 $("gen").onchange=e=>{st.gen=e.target.value;render()};
 $("fmt").onchange=e=>{st.fmt=e.target.value;render()};
 $("dec").onchange=e=>{st.dec=e.target.value;render()};
@@ -178,7 +192,7 @@ function render(){
     const yr=i._y?` <span class="yr">(${i._y}${many&&i.films.length?"–"+Math.max(...i.films.map(f=>f.year||0)):""})</span>`:"";
     const flag=needs(i)?'<span class="flag">CHECK</span>':"";
     const extra=[i.bookcase&&i.bookcase<=175?`Bookcase pick #${i.bookcase}`:"",i.dup_of?`Not in bookcase 175: ${i.dup_of}`:"",i.qty>1?`${i.qty} copies`:"",i.notes,(!i.films.length||many)&&i.genres&&i.genres.length?"Genre: "+i.genres.join(", "):""].filter(Boolean).join(" · ");
-    return `<details><summary><span class="t">${i.bookcase&&i.bookcase<=175?`<span class="rank">#${i.bookcase}</span> `:""}${esc(i.title)}${yr}${flag}</span><span class="tags"><span class="tag fmt">${esc(i.format)}</span>${i._r?`<span class="tag">IMDb ${esc(i._r)}</span>`:""}</span><span class="by">${by}${i.genres&&i.genres.length?` <span class="gtag">· ${esc(i.genres.join(", "))}</span>`:""}</span>${plotOf(i)?`<span class="plot">${esc(plotOf(i))}</span>`:""}</summary><div class="body"><dl class="film"><dt>Location</dt><dd>${esc(i.location)}</dd></dl>${extra?`<div class="copy">${esc(extra)}</div>`:""}${i.films.map(f=>filmBlock(f,many)).join("")||'<div class="copy">No film details: title not yet identified.</div>'}</div></details>`;
+    return `<details><summary><div class="sum"><span class="t">${i.bookcase&&i.bookcase<=175?`<span class="rank">#${i.bookcase}</span> `:""}${esc(i.title)}${yr}${flag}</span><span class="tags"><span class="tag fmt">${esc(i.format)}</span>${i._r?`<span class="tag">IMDb ${esc(i._r)}</span>`:""}</span><span class="by">${by}${i.genres&&i.genres.length?` <span class="gtag">· ${esc(i.genres.join(", "))}</span>`:""}</span>${plotOf(i)?`<span class="plot">${esc(plotOf(i))}</span>`:""}</div></summary><div class="body"><dl class="film"><dt>Location</dt><dd>${esc(i.location)}</dd></dl>${extra?`<div class="copy">${esc(extra)}</div>`:""}${i.films.map(f=>filmBlock(f,many)).join("")||'<div class="copy">No film details: title not yet identified.</div>'}</div></details>`;
   }).join(""):'<p class="empty">Nothing matches. Clear the search or pick another location.</p>';
   const discs=ITEMS.filter(i=>!i.title.startsWith("Unidentified")).reduce((s,i)=>s+i.qty,0);
   const films=ITEMS.reduce((s,i)=>s+i.films.length,0);
