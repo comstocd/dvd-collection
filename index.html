@@ -86,6 +86,7 @@ footer{margin-top:28px;color:var(--muted);font-size:.85rem;max-width:65ch}
         <option value="title">Title</option><option value="year">Year</option>
         <option value="director">Director</option><option value="rating">IMDb rating</option><option value="location">Location</option>
       </select>
+      <button type="button" class="toggle" id="top" aria-pressed="false">Top 175 by IMDb</button>
       <button type="button" class="toggle" id="chk" aria-pressed="false">Needs checking</button>
     </div>
   </div>
@@ -100,7 +101,7 @@ footer{margin-top:28px;color:var(--muted);font-size:.85rem;max-width:65ch}
 (function(){
 const ITEMS=(window.COLLECTION&&window.COLLECTION.items)||[];
 const LOCS=["All","Box 1","Box 2","Box 3","Box 4","Box 5","Box 6","Bookcase top","Bookcase bottom","Low shelf","Bin","Desk","Location TBD"];
-const st={q:"",loc:"All",gen:"",fmt:"",dec:"",sort:"title",chk:false};
+const st={q:"",loc:"All",gen:"",fmt:"",dec:"",sort:"title",chk:false,top:false};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const art=t=>t.replace(/^(The|A|An) /i,"");
@@ -128,6 +129,10 @@ $("fmt").onchange=e=>{st.fmt=e.target.value;render()};
 $("dec").onchange=e=>{st.dec=e.target.value;render()};
 $("sort").onchange=e=>{st.sort=e.target.value;render()};
 $("chk").onclick=()=>{st.chk=!st.chk;render()};
+$("top").onclick=()=>{st.top=!st.top;if(st.top){st.sort="rating";$("sort").value="rating"}render()};
+const RANKED=ITEMS.filter(i=>i._r).sort((a,b)=>b._r-a._r);
+const CUT=RANKED.length>=175?RANKED[174]._r:0;
+RANKED.forEach((i,k)=>i._rank=k+1);
 
 function filmBlock(f,many){
   const rows=[];
@@ -149,13 +154,14 @@ function filmBlock(f,many){
 function plotOf(i){if(i.films.length===1)return i.films[0].plot||"";if(i.films.length>1)return `Set of ${i.films.length}: `+i.films.map(f=>f.title).join("; ")+".";return ""}
 function render(){
   $("chk").setAttribute("aria-pressed",String(st.chk));
+  $("top").setAttribute("aria-pressed",String(st.top));
   // a query that names a genre matches that genre exactly (so "comedy" does not pull in "dark comedy")
   let q=st.q, gq=null, tq=null;
   if(TAGL.includes(q)&&!GENL.includes(q)){tq=q;q="";}
   const hit=GENL.find(g=>q===g||q.startsWith(g+" ")||q.endsWith(" "+g));
   if(hit){gq=hit;q=q===hit?"":(q.startsWith(hit+" ")?q.slice(hit.length+1):q.slice(0,-hit.length-1));}
   const words=q.split(/\s+/).filter(Boolean).filter(w=>{const g=GENL.find(x=>x===w);if(g&&!gq){gq=g;return false}return true});
-  let r=ITEMS.filter(i=>(true)&&(!st.gen||(i.genres||[]).includes(st.gen))&&(!gq||i._g.includes(gq))&&(!tq||i._t.includes(tq))&&(!st.fmt||i.format===st.fmt)&&(!st.dec||(i._y&&Math.floor(i._y/10)*10==st.dec))&&(!st.chk||needs(i))&&words.every(w=>i._hay.includes(w)));
+  let r=ITEMS.filter(i=>(true)&&(!st.gen||(i.genres||[]).includes(st.gen))&&(!gq||i._g.includes(gq))&&(!tq||i._t.includes(tq))&&(!st.fmt||i.format===st.fmt)&&(!st.dec||(i._y&&Math.floor(i._y/10)*10==st.dec))&&(!st.chk||needs(i))&&(!st.top||(i._r&&i._r>=CUT))&&words.every(w=>i._hay.includes(w)));
   const T=(a,b)=>art(a.title).localeCompare(art(b.title));
   r.sort((a,b)=>{
     if(st.sort==="year")return (a._y||9999)-(b._y||9999)||T(a,b);
