@@ -1,0 +1,236 @@
+0|tt0120737|8.9|PG-13|Adventure,Drama,Fantasy|The Lord of the Rings,Action Epic,Adventure Epic,Dark Fantasy,Epic,Fantasy Epic,Quest,Sword & Sorcery
+1|tt0167261|8.8|PG-13|Adventure,Drama,Fantasy|The Lord of the Rings,Action Epic,Adventure Epic,Dark Fantasy,Epic,Fantasy Epic,Quest,Sword & Sorcery
+2|tt0167260|9|PG-13|Adventure,Drama,Fantasy|The Lord of the Rings,Action Epic,Adventure Epic,Epic,Fantasy Epic,Mountain Adventure,Quest,Sword & Sorcery,Tragedy
+3|tt0117918|6.4|R|Comedy,Drama,Romance,Sport|Romantic Comedy
+4|tt0106977|7.8|PG-13|Action,Crime,Drama,Mystery,Thriller|Conspiracy Thriller,Psychological Thriller,Whodunnit
+5|tt2179136|7.3|R|Action,Biography,Drama,War|Docudrama,Psychological Drama
+6|tt1205489|8.1|R|Drama|Dark Comedy,Psychological Drama
+7|tt3263904|7.4|PG-13|Biography,Drama,History|Disaster,Docudrama
+8|tt0101393|6.7|R|Action,Drama,Mystery,Thriller|Action Epic,Psychological Drama,Suspense Mystery
+9|tt8172466|4.9|R|Action,Crime,Drama,Thriller|
+10|tt0089881|8.2|R|Action,Drama,War|Japanese,Epic,Period Drama,Samurai,Tragedy,War Epic
+11|tt0055630|8.2|Not Rated|Action,Drama,Thriller|Japanese,Dark Comedy,One-Person Army Action,Period Drama,Psychological Thriller,Samurai
+12|tt0056443|8|Not Rated|Action,Drama,Thriller|Japanese,Dark Comedy,Samurai
+13|tt0047478|8.6|Not Rated|Action,Drama|Japanese,Action Epic,Epic,Period Drama,Samurai
+14|tt0052311|7.9|PG-13|Crime,Drama,Film Noir,Thriller|
+15|tt0038991|7.3|Approved|Crime,Drama,Film Noir,Mystery,Thriller|
+16|tt0040525|7.5|Approved|Crime,Drama,Film Noir,Mystery,Thriller|
+17|tt0041959|8.1|Approved|Drama,Film Noir,Mystery,Thriller|Hard-boiled Detective,Psychological Thriller,Spy,Whodunnit
+18|tt0045251|7.5|Approved|Drama,Romance|Period Drama,Political Drama,Tragedy,Tragic Romance
+19|tt0033467|8.2|PG|Drama,Mystery|Epic,Period Drama,Psychological Drama,Tragedy
+20|tt0056801|8|Not Rated|Drama|Italian,Dark Comedy,Epic,Psychological Drama,Showbiz Drama
+21|tt0050825|8.4|Approved|Drama,War|Epic,Legal Drama,Period Drama,Political Drama,Psychological Drama,Tragedy,War Epic
+22|tt0062622|8.3|G|Adventure,Sci-Fi|Adventure Epic,Artificial Intelligence,Epic,Psychological Drama,Sci-Fi Epic,Space Sci-Fi
+23|tt0081505|8.4|R|Drama,Horror|Psychological Drama,Psychological Horror,Supernatural Horror
+24|tt0093058|8.2|R|Drama,War|Dark Comedy,Period Drama,Psychological Drama
+25|tt0044706|7.9|PG|Drama,Thriller,Western|Classical Western
+26|tt0049730|7.8|Approved|Adventure,Western|Classical Western,Desert Adventure,Epic,Psychological Drama,Quest,Western Epic
+27|tt0070047|8.1|R|Horror|Body Horror,Psychological Drama,Psychological Horror,Supernatural Horror,Tragedy
+28|tt0043014|8.4|Approved|Drama,Film Noir|Dark Comedy,Psychological Drama,Showbiz Drama,Tragedy
+29|tt0034240|7.9|Approved|Adventure,Comedy,Drama,Romance|Romantic Comedy,Satire,Screwball Comedy,Showbiz Drama,Slapstick
+30|tt0118715|8.1|R|Comedy,Crime|Buddy Comedy,Drug Crime,Satire,Stoner Comedy
+31|tt0120912|6.2|PG-13|Action,Adventure,Comedy,Mystery,Sci-Fi|Buddy Comedy,Buddy Cop,High-Concept Comedy
+32|tt0050086|7.6|Approved|Adventure,Drama,Thriller,Western|Classical Western
+33|tt0120347|6.5|PG-13|Action,Adventure,Thriller|James Bond,Globetrotting Adventure,Spy
+34|tt0268978|8.2|PG-13|Biography,Drama,Mystery|Docudrama,Period Drama,Psychological Drama
+35|tt0143145|6.4|PG-13|Action,Adventure,Thriller|James Bond,Spy
+36|tt0084827|6.7|PG|Action,Adventure,Sci-Fi|Action Epic,Adventure Epic,Artificial Intelligence,Cyberpunk,Sci-Fi Epic,Superhero
+37|tt0088847|7.8|R|Comedy,Drama|Coming-of-Age,Teen Comedy,Teen Drama
+38|tt0218967|6.9|PG-13|Comedy,Drama,Fantasy,Romance|Holiday Romance,Romantic Comedy
+39|tt0082694|7.6|R|Action,Adventure,Sci-Fi|Action Epic,Adventure Epic,Car Action,Desert Adventure,Dystopian Sci-Fi,Epic,One-Person Army Action,Sci-Fi Epic,Tragedy
+40|tt0120889|7|PG-13|Drama,Fantasy,Romance|Psychological Drama,Tragedy
+41|tt0075148|8.1|PG|Drama,Sport|Boxing
+42|tt0167404|8.2|PG-13|Drama,Mystery,Thriller|Psychological Drama,Psychological Thriller,Suspense Mystery
+43|tt0132245|4.6|PG-13|Action,Drama,Sport|Motorsport
+44|
+45|tt0085271|6.4|PG|Sci-Fi,Thriller|Conspiracy Thriller,Cyberpunk,Psychological Thriller
+46|tt0093870|7.6|R|Action,Crime,Sci-Fi|Cop Drama,Cyberpunk,Dark Comedy,Dystopian Sci-Fi,Gangster,One-Person Army Action,Superhero,Tragedy
+47|tt0063350|7.8|R|Horror,Thriller|B-Horror,Splatter Horror,Survival,Zombie Horror
+48|tt0084516|7.3|PG|Horror,Thriller|Body Horror,Supernatural Horror
+49|tt0075686|7.9|PG|Comedy,Romance|Romantic Comedy
+50|tt0116629|7|PG-13|Action,Adventure,Sci-Fi|Action Epic,Adventure Epic,Alien Invasion,Dark Comedy,Disaster,Sci-Fi Epic,Space Sci-Fi,Survival,Tragedy
+51|tt0317740|7|PG-13|Action,Crime,Thriller|Caper,Car Action,Heist
+52|tt0375679|7.7|R|Crime,Drama,Thriller|Psychological Drama,Tragedy
+53|tt0075314|8.2|R|Crime,Drama|Psychological Drama
+54|tt0072890|8|R|Biography,Crime,Drama,Thriller|Dark Comedy,Heist,Psychological Thriller,True Crime
+55|tt0265459|6.8|R|Drama,Thriller|Erotic Thriller,Psychological Drama,Psychological Thriller
+56|tt0095016|8.2|R|Action,Thriller|Dark Comedy,Disaster,One-Person Army Action,Holiday
+57|tt0070735|8.2|PG|Comedy,Crime,Drama|Caper,Gangster,Period Drama
+58|tt0088247|8.1|R|Action,Adventure,Sci-Fi|Terminator,Artificial Intelligence,Cyberpunk,Dystopian Sci-Fi,One-Person Army Action,Time Travel,Urban Adventure
+59|tt0293662|6.8|PG-13|Action,Crime,Thriller|Car Action,Jason Statham Action,Martial Arts,One-Person Army Action
+60|tt0331952|5.8|R|Drama,Mystery,Thriller|Psychological Drama,Psychological Thriller
+61|tt0211492|6.8|PG-13|Drama,Romance|Costume Drama,Period Drama,Tragic Romance
+62|tt0078966|7.4|PG|Drama,Thriller|Political Thriller,Tragedy
+63|tt0480249|7.2|PG-13|Drama,Horror,Sci-Fi|Action Epic,Adventure Epic,Dystopian Sci-Fi,One-Person Army Action,Sci-Fi Epic,Survival,Tragedy,Zombie Horror
+64|
+65|tt0112462|5.5|PG-13|Action,Adventure|DC,Superhero,Urban Adventure
+66|tt0078748|8.4|R|Horror,Sci-Fi|Alien,Alien Invasion,Cyberpunk,Monster Horror,Space Sci-Fi
+67|tt0090605|8.4|R|Action,Adventure,Horror,Sci-Fi|Alien,Alien Invasion,Cyberpunk,Monster Horror,Space Sci-Fi,Survival
+68|tt0103644|6.4|R|Action,Horror,Sci-Fi|Alien,Alien Invasion,Monster Horror,Space Sci-Fi
+69|tt0118583|6.2|R|Action,Horror,Sci-Fi|Alien,Alien Invasion,Monster Horror,Space Sci-Fi
+70|tt0083590|7.6|Not Rated|Documentary,History|
+71|tt0082869|6.6|R|Action,Crime,Sci-Fi,Thriller,Western|Conspiracy Thriller,Contemporary Western,Space Sci-Fi
+72|tt0077975|7.4|R|Comedy|Dark Comedy,Raunchy Comedy,Slapstick,Teen Comedy
+73|tt0118884|7.5|PG|Drama,Mystery,Sci-Fi|Epic,Psychological Drama,Psychological Thriller,Sci-Fi Epic,Space Sci-Fi,Tragedy,Workplace Drama
+74|tt0063442|8|G|Adventure,Sci-Fi|Planet of the Apes,Dystopian Sci-Fi,Sci-Fi Epic,Space Sci-Fi,Time Travel
+75|tt0088170|6.7|PG|Action,Adventure,Sci-Fi|Star Trek,Space Sci-Fi
+76|tt0084726|7.7|PG|Action,Adventure,Sci-Fi|Star Trek,Sci-Fi Epic,Space Sci-Fi
+77|tt0075029|7.8|PG|Drama,Western|Epic
+78|tt0190332|7.8|PG-13|Action,Adventure,Drama|Mandarin,Action Epic,Adventure Epic,Epic,Fantasy Epic,Martial Arts,Period Drama,Quest,Romantic Epic,Sword & Sorcery
+79|tt0070034|7.6|R|Action,Crime,Thriller|Kung Fu,Martial Arts,One-Person Army Action
+80|tt0087332|7.8|PG|Action,Comedy,Fantasy,Sci-Fi|Dark Comedy,High-Concept Comedy,Quirky Comedy,Supernatural Fantasy
+81|tt0083131|6.8|R|Comedy,War|Buddy Comedy
+82|tt0117500|7.4|R|Action,Adventure,Thriller|Action Epic,Conspiracy Thriller,Dark Comedy,Disaster,Political Drama,Political Thriller,Tragedy
+83|tt0111503|7.3|R|Action,Comedy,Thriller|Dark Comedy,High-Concept Comedy,One-Person Army Action,Political Thriller,Spy
+84|tt0095159|7.5|R|Comedy,Crime|Caper,Dark Comedy,Farce,Heist,Screwball Comedy,Slapstick
+85|tt0181875|7.9|R|Adventure,Comedy,Drama,Music|Coming-of-Age,Period Drama,Road Trip,Showbiz Drama
+86|tt0436078|6.4|Not Rated|Documentary,Comedy|Satire,Stand-Up
+87|tt0175142|6.3|R|Comedy|Dark Comedy,Parody,Raunchy Comedy,Slapstick,Stoner Comedy,Teen Comedy
+88|tt0270288|7|R|Biography,Comedy,Crime,Drama,Romance,Thriller|Dark Comedy,True Crime
+89|tt0422093|5.8|PG-13|Comedy,Drama,Romance|Dark Comedy,Farce,Psychological Drama,Romantic Comedy
+90|tt0319343|7.1|PG|Adventure,Comedy,Family,Fantasy|Holiday Comedy,Holiday Family,Holiday Romance,Quirky Comedy,Urban Adventure,Holiday
+91|tt0103241|7|PG|Comedy|Farce
+92|tt0371724|6.7|PG|Adventure,Comedy,Sci-Fi|Space Sci-Fi
+93|tt0241303|7.2|PG-13|Drama,Romance|Feel-Good Romance,Period Drama,Tragedy
+94|tt0094737|7.3|PG|Comedy,Drama,Fantasy,Romance|Body Swap Comedy,Coming-of-Age,High-Concept Comedy
+95|tt0067116|7.6|R|Action,Crime,Drama,Thriller|Cop Drama,Drug Crime,Police Procedural,True Crime
+96|tt0162222|7.8|PG-13|Adventure,Drama,Romance|Survival
+97|tt0081398|8.1|R|Biography,Drama,Sport|Boxing,Docudrama,Period Drama,Psychological Drama
+98|tt0114814|8.5|R|Crime,Drama,Mystery|Caper,Gangster,Heist,Psychological Drama,Psychological Thriller,Suspense Mystery,Whodunnit
+99|tt0110413|8.5|R|Action,Crime,Drama,Thriller|Gangster,One-Person Army Action,Tragedy
+100|tt0073195|8.1|PG|Adventure,Drama,Horror,Thriller|Monster Horror,Sea Adventure,Survival
+101|tt0081633|6.9|PG|Adventure,Comedy,Fantasy|Dark Fantasy,Fantasy Epic,Farce,Globetrotting Adventure,Quest,Satire,Steampunk,Swashbuckler,Time Travel
+102|tt0428803|7.5|G|Documentary,Family|French,Animal Adventure,Nature Documentary
+103|tt0066473|7.5|G|Action,Drama,History,War|Action Epic,Epic,Historical Epic,Period Drama,War Epic
+104|tt0082096|8.3||Drama,War|German,Epic,Period Drama,Psychological Drama,Survival,War Epic
+105|tt0120815|8.6|R|Drama,War|Action Epic,Epic,Period Drama,Tragedy,War Epic
+106|tt0253474|8.5|R|Biography,Drama,Music,War|Docudrama,Epic,Period Drama,Psychological Drama,Tragedy,War Epic
+107|tt0075784|7.4|PG|Drama,History,War|Epic,Historical Epic,Period Drama,War Epic
+108|tt0080437|7.1|R|Drama,War|Period Drama,War Epic
+109|tt0058947|6.8|Approved|Drama,History,War|Epic,Historical Epic,Period Drama,War Epic
+110|tt0061578|7.7|Approved|Action,Adventure,War|Quest,War Epic
+111|tt0041163|7.4|Approved|Action,Drama,History,War|
+112|tt0065207|7.6|M|Action,Adventure,War|Spy,War Epic
+113|tt0117998|6.6|PG-13|Action,Adventure,Thriller|Disaster,Survival
+114|tt0119654|7.3|PG-13|Action,Adventure,Comedy,Sci-Fi|Alien Invasion,Buddy Comedy,Buddy Cop,High-Concept Comedy,Urban Adventure
+115|tt0059578|8.2|R|Drama,Western|Period Drama,Quest,Spaghetti Western
+116|tt0060196|8.8|R|Adventure,Drama,Western|Action Epic,Adventure Epic,Classical Western,Dark Comedy,Desert Adventure,Epic,Period Drama,Quest,Spaghetti Western,Western Epic
+117|tt0058461|7.9|R|Drama,Western|One-Person Army Action,Period Drama,Spaghetti Western
+118|tt0277434|7.2|R|Action,Drama,History|Action Epic,Docudrama,Epic,Historical Epic,Period Drama,Tragedy,War Epic
+119|tt0057115|8.2|Approved|Adventure,Drama,Thriller,War|Epic,Period Drama,Prison Drama,War Epic
+120|tt0072081|7|G|Comedy,Crime,Mystery|Bumbling Detective,Farce,Globetrotting Adventure,Slapstick
+121|tt0083015|6.4|R|Comedy,Drama|Satire,Slapstick
+122|tt0449059|7.8|R|Comedy,Drama|Coming-of-Age,Dark Comedy,Psychological Drama,Road Trip
+123|tt0079336|7.3|PG|Action,Adventure,Comedy,Crime,Thriller|Buddy Comedy,Caper,Farce,Screwball Comedy,Spy
+124|tt0295178|6.3|PG-13|Action,Adventure,Comedy,Crime|Farce,Parody,Satire,Slapstick
+125|tt0145660|6.7|PG-13|Action,Adventure,Comedy,Crime|Parody,Slapstick
+126|tt0094012|7.1|PG|Adventure,Comedy,Sci-Fi|Dark Comedy,Farce,Parody,Quest,Quirky Comedy,Satire,Sci-Fi Epic,Slapstick,Space Sci-Fi
+127|tt0177789|7.4|PG|Adventure,Comedy,Sci-Fi|High-Concept Comedy,Parody,Space Sci-Fi
+128|tt0089670|6.2|PG-13|Adventure,Comedy|Farce,Globetrotting Adventure,Road Trip,Screwball Comedy,Slapstick,Urban Adventure
+129|tt0080339|7.7|PG|Comedy|Dark Comedy,Farce,Parody,Satire,Slapstick
+130|tt0065051|7.4|G|Comedy,Western|Dark Comedy
+131|tt0067809|6.8|G|Comedy,Romance,Western|Dark Comedy,Parody
+132|tt0098635|7.7|R|Comedy,Drama,Romance|Epic,Feel-Good Romance,Romantic Comedy,Romantic Epic
+133|tt0163651|7|R|Comedy|Raunchy Comedy,Teen Comedy
+134|tt0091042|7.8|PG-13|Comedy|Buddy Comedy,Dark Comedy,Satire,Teen Comedy
+135|tt0206314|6.6|R|Mystery,Thriller|Psychological Thriller,Road Trip
+136|tt0114287|6.9|R|Adventure,Biography,Drama|Adventure Epic,Costume Drama,Docudrama,Historical Epic,Period Drama,Quest,Swashbuckler
+137|tt0119311|6.3|R|Crime,Drama|Docudrama,Epic,Gangster,Period Drama,Psychological Drama,Tragedy,True Crime
+138|tt0251127|6.6|PG-13|Comedy,Romance|Feel-Good Romance,Romantic Comedy
+139|tt0266915|6.7|PG-13|Action,Comedy,Crime,Thriller|Buddy Comedy,Buddy Cop,Martial Arts
+140|tt0120812|7.1|PG-13|Action,Comedy,Crime,Thriller|Buddy Comedy,Buddy Cop,Martial Arts
+141|tt0120399|6.7|R|Crime,Drama,Thriller|Dark Comedy,Psychological Thriller
+142|tt0162661|7.3|R|Fantasy,Horror,Mystery|Dark Fantasy,Folk Horror,Supernatural Horror,Whodunnit
+143|tt1596343|7.3|PG-13|Action,Crime,Thriller|Fast & Furious,Action Epic,Caper,Car Action
+144|tt0086780|9.5||Documentary|
+145|
+146|tt0083658|8.1|R|Action,Drama,Sci-Fi,Thriller|Blade Runner,Artificial Intelligence,Cyber Thriller,Cyberpunk,Dystopian Sci-Fi,Tragedy
+147|tt1431045|8|R|Action,Comedy,Sci-Fi|Marvel,Dark Comedy,Gun Fu,High-Concept Comedy,Raunchy Comedy,Superhero
+148|tt5463162|7.6|R|Action,Adventure,Comedy|Marvel,Dark Comedy,Gun Fu,High-Concept Comedy,Raunchy Comedy,Superhero,Time Travel
+149|tt0365748|7.8|R|Comedy,Horror|Buddy Comedy,Dark Comedy,Parody,Splatter Horror,Survival,Zombie Horror
+150|tt0796366|7.9|PG-13|Action,Adventure,Sci-Fi|Star Trek,Space Sci-Fi,Time Travel
+151|tt0265086|7.7|R|Action,Drama,History|Action Epic,Docudrama,Epic,Historical Epic,Psychological Drama,Tragedy,War Epic
+152|tt0417741|7.6|PG|Adventure,Family,Fantasy|Harry Potter,Adventure Epic,Coming-of-Age,Fantasy Epic,Sword & Sorcery,Teen Adventure,Teen Drama,Teen Fantasy
+153|tt1119646|7.7|R|Comedy|Buddy Comedy,Raunchy Comedy,Slapstick
+154|tt0317705|8|PG|Animation,Action,Adventure,Family|Action Epic,Adult Animation,Adventure Epic,Computer Animation,Superhero,Urban Adventure
+155|tt3606756|7.5|PG|Animation,Action,Adventure,Comedy|Computer Animation,Conspiracy Thriller,Cyber Thriller,Spy,Superhero,Urban Adventure
+156|tt0032138|8.1|G|Adventure,Family,Fantasy,Musical|Adventure Epic,Classic Musical,Fairy Tale,Fantasy Epic,Quest
+157|tt1275675|7.9||Music|
+158|tt0119488|8.2|R|Crime,Drama,Mystery|Conspiracy Thriller,Cop Drama,Epic,Hard-boiled Detective,Period Drama,Police Procedural,Suspense Mystery,Whodunnit
+159|tt0297753|6|PG-13|Animation,Adventure,Family,Fantasy,Sci-Fi|French,Computer Animation,Space Sci-Fi
+160|
+161|
+162|tt0046250|8|Approved|Comedy,Drama,Romance|Epic,Romantic Comedy,Romantic Epic
+163|tt0050976|8.1|Not Rated|Drama,Fantasy|Swedish,Dark Comedy,Period Drama,Psychological Drama
+164|tt0093389|7.7|PG-13|Biography,Drama,History|Costume Drama,Docudrama,Historical Epic,Period Drama
+165|tt0048424|7.9|Approved|Crime,Drama,Thriller|Psychological Drama,Psychological Thriller
+166|tt0064116|8.5|PG-13|Drama,Western|Adventure Epic,Desert Adventure,Epic,Period Drama,Quest,Spaghetti Western,Western Epic
+167|tt0080297|8.4|TV-14|Drama,Mystery,Thriller|Spy
+168|tt0083480|8.4|TV-14|Drama,Mystery|Spy
+169|tt0047396|8.4|PG|Drama,Mystery,Thriller|Dark Comedy,Psychological Thriller,Suspense Mystery
+170|tt0056869|7.6|PG-13|Drama,Horror,Mystery,Romance|Adventure Epic,Dark Comedy,Disaster,Psychological Drama,Psychological Horror,Survival
+171|tt0038787|7.9|Approved|Drama,Film Noir,Mystery,Romance,Thriller|Spy
+172|tt0040746|7.9|Approved|Crime,Drama,Mystery,Thriller|Psychological Drama,Psychological Thriller,Tragedy
+173|tt0036342|7.7|PG|Drama,Film Noir,Mystery,Thriller|
+174|tt0053125|8.2|Approved|Action,Adventure,Drama,Mystery,Thriller|Spy
+175|tt0048728|7.4|PG|Drama,Mystery,Romance,Thriller|Epic,Romantic Epic,Suspense Mystery,Whodunnit
+176|tt0049470|7.4|PG|Crime,Drama,Mystery,Thriller|Conspiracy Thriller,Political Thriller,Psychological Thriller,Spy
+177|tt0048750|7|PG|Comedy,Mystery|Dark Comedy,Whodunnit
+178|tt0120684|7.3|R|Biography,Drama|Period Drama,Showbiz Drama
+179|tt0071360|7.7|PG|Drama,Mystery,Thriller|Conspiracy Thriller,Psychological Drama,Psychological Thriller,Suspense Mystery,Tragedy,Whodunnit
+180|tt0088707|6.5|PG-13|Drama,Sport|
+181|tt0195685|7.5|R|Biography,Drama|Docudrama,Legal Drama,Workplace Drama
+182|tt0407887|8.5|R|Crime,Drama,Thriller|Cop Drama,Epic,Gangster,Psychological Thriller
+183|tt0120689|8.6|R|Crime,Drama,Fantasy,Mystery|Period Drama,Prison Drama,Psychological Drama,Supernatural Fantasy,Tragedy
+184|tt0120661|7|Unrated|Documentary|Nature Documentary,Survival,Travel Documentary,Short
+185|
+186|tt0304919|6||Documentary|Short
+187|
+188|
+189|
+190|
+191|tt0377171|8.2|Not Rated|Documentary|
+192|tt0081036|7.1||Sci-Fi|Alien Invasion,Dystopian Sci-Fi
+193|tt0171804|7.5|R|Biography,Crime,Drama,Romance|Coming-of-Age,Docudrama,Psychological Drama,Tragic Romance,True Crime
+194|tt0120586|8.5|R|Crime,Drama|Gangster,Political Drama,Prison Drama,Psychological Drama,Tragedy
+195|tt0257076|6.1|PG-13|Action,Adventure,Crime,Thriller|Cop Drama,Police Procedural,Urban Adventure
+196|tt0119807|6.7|R|Action,Adventure,Comedy,Crime|Buddy Comedy,Dark Comedy,Farce
+197|tt0119942|6.7|R|Comedy,Drama|Political Drama
+198|tt0118571|6.6|R|Action,Crime,Drama,Thriller|Disaster,One-Person Army Action,Political Thriller
+199|tt0349903|6.5|PG-13|Crime,Thriller|Caper,Heist
+200|tt0118564|6.9|R|Drama,Mystery,Thriller|Psychological Drama,Psychological Thriller,Suspense Mystery,Whodunnit
+201|tt1485796|7.5|PG|Biography,Drama,Musical,Romance|Period Drama,Pop Musical,Showbiz Drama
+202|tt0090713|6|PG-13|Comedy,Drama,Sport|Football
+203|tt0496424|8.3|TV-14|Comedy|Parody,Satire,Sitcom
+204|tt0120632|6.7|PG-13|Drama,Fantasy,Romance|Tragic Romance
+205|tt0209475|5.4|PG-13|Comedy,Romance|Romantic Comedy
+206|tt0094602|6|R|Action,Crime,Drama,Mystery|Cop Drama,Dark Comedy,Martial Arts,One-Person Army Action,Police Procedural,Political Thriller
+207|tt0299658|7.2|PG-13|Comedy,Crime,Musical|True Crime
+208|tt0162677|6.7|R|Crime,Drama,Romance,Thriller|Psychological Thriller,Serial Killer,True Crime
+209|tt0095895|7.2|G|Documentary,Music|
+210|tt0232500|6.8|PG-13|Action,Crime,Thriller|Fast & Furious,Car Action
+211|tt0322259|6|PG-13|Action,Crime,Thriller|Fast & Furious,Car Action
+212|tt0463985|6.1|PG-13|Action,Crime,Thriller|Fast & Furious,Car Action
+213|tt1013752|6.5|PG-13|Action,Thriller|Fast & Furious,Action Epic,Car Action
+214|tt0121766|7.7|PG-13|Action,Adventure,Fantasy|Star Wars,Action Epic,Adventure Epic,Dark Fantasy,Epic,Fantasy Epic,One-Person Army Action,Quest,Sci-Fi Epic,Space Sci-Fi
+215|tt0121765|6.6|PG|Action,Adventure,Fantasy|Star Wars,Action Epic,Adventure Epic,Epic,Fantasy Epic,Quest,Sci-Fi Epic,Space Sci-Fi
+216|tt0120915|6.5|PG|Action,Adventure,Fantasy|Star Wars,Action Epic,Adventure Epic,Epic,Fantasy Epic,Quest,Sci-Fi Epic,Space Sci-Fi,Sword & Sorcery
+217|tt0446029|7.5|PG-13|Action,Comedy,Fantasy|Coming-of-Age,High-Concept Comedy,Quirky Comedy,Romantic Comedy,Showbiz Drama,Supernatural Fantasy,Teen Comedy,Teen Fantasy,Teen Romance
+218|tt0102034|4.2|R|Action,Adventure,Drama,Fantasy,Sci-Fi,Thriller|Dark Comedy,Swashbuckler
+219|tt0137523|8.8|R|Crime,Drama,Thriller|Dark Comedy,Psychological Drama,Psychological Thriller,Workplace Drama
+220|tt0209144|8.4|R|Mystery,Thriller|Psychological Thriller,Suspense Mystery
+221|tt0103064|8.6|R|Action,Adventure,Sci-Fi|Terminator,Action Epic,Artificial Intelligence,Dark Comedy,Dystopian Sci-Fi,One-Person Army Action,Sci-Fi Epic,Time Travel
+222|tt0103776|7.1|PG-13|Action,Crime,Fantasy|DC,Dark Fantasy,Superhero,Supernatural Fantasy,Holiday
+223|tt0120731|8|R|Drama,Music,Romance|Coming-of-Age,Period Drama
+224|tt0119173|6.1|R|Action,Drama,War|Action Epic,Dark Comedy
+225|tt0120591|6.7|PG-13|Action,Adventure,Sci-Fi|Action Epic,Adventure Epic,Dark Comedy,Disaster,Sci-Fi Epic,Space Sci-Fi,Survival,Tragedy
+226|tt0120382|8.2|PG|Comedy,Drama|Dark Comedy,High-Concept Comedy,Psychological Drama,Satire,Showbiz Drama
+227|tt0454921|8|PG-13|Biography,Drama|Psychological Drama,Workplace Drama
+228|tt0315327|6.8|PG-13|Comedy,Fantasy|High-Concept Comedy,Quirky Comedy,Slapstick,Supernatural Fantasy
+229|tt0240772|7.7|PG-13|Crime,Thriller|Caper,Heist
+230|tt0165929|6.1|R|Action,Crime,Thriller|Dark Comedy,Drug Crime,Gun Fu,Martial Arts
+231|tt0117705|6.5|PG|Animation,Adventure,Comedy|Alien Invasion,Basketball,Farce,Hand-Drawn Animation,High-Concept Comedy,Satire,Slapstick,Space Sci-Fi,Urban Adventure
+232|tt0120630|7.1|G|Animation,Adventure,Comedy|Animal Adventure,Buddy Comedy,Dark Comedy,Prison Drama,Satire,Slapstick,Stop Motion Animation
+233|tt0265208|6.7|R|Comedy,Drama,Romance|Raunchy Comedy,Romantic Comedy,Teen Comedy,Teen Drama,Teen Romance
+234|tt0120036|7.2|R|Action,Drama,History|Docudrama,Epic,Historical Epic,Period Drama,Psychological Drama,Survival,Tragedy
+235|tt0489327|7|R|Comedy,Drama,Romance|

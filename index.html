@@ -58,6 +58,7 @@ summary::-webkit-details-marker{display:none}
 .film dd{margin:0;min-width:0}
 .film a{color:var(--accent)}
 .copy{font-size:.9rem;color:var(--muted)}
+.gtag{font-family:var(--display);font-size:.82rem;letter-spacing:.02em}
 .empty{color:var(--muted);padding:24px 4px}
 footer{margin-top:28px;color:var(--muted);font-size:.85rem;max-width:65ch}
 @media (max-width:480px){.film{grid-template-columns:1fr}.film dt{padding-top:6px}}
@@ -71,9 +72,12 @@ footer{margin-top:28px;color:var(--muted);font-size:.85rem;max-width:65ch}
   <div class="stats" id="stats"></div>
 
   <div class="bar">
-    <input id="q" type="search" placeholder="Search title, director, actor, year, country…" aria-label="Search the collection">
-    <div class="chips" id="locs" role="group" aria-label="Filter by location"></div>
+    <input id="q" type="search" placeholder="Search title, director, actor, year, genre or subgenre…" aria-label="Search the collection">
     <div class="row">
+      <label class="sl" for="loc">Location</label>
+      <select id="loc"><option value="All">All</option></select>
+      <label class="sl" for="gen">Genre</label>
+      <select id="gen"><option value="">All</option></select>
       <label class="sl" for="fmt">Format</label>
       <select id="fmt"><option value="">All</option></select>
       <label class="sl" for="dec">Decade</label>
@@ -81,7 +85,7 @@ footer{margin-top:28px;color:var(--muted);font-size:.85rem;max-width:65ch}
       <label class="sl" for="sort">Sort</label>
       <select id="sort">
         <option value="title">Title</option><option value="year">Year</option>
-        <option value="director">Director</option><option value="location">Location</option>
+        <option value="director">Director</option><option value="rating">IMDb rating</option><option value="location">Location</option>
       </select>
       <button type="button" class="toggle" id="chk" aria-pressed="false">Needs checking</button>
     </div>
@@ -89,7 +93,7 @@ footer{margin-top:28px;color:var(--muted);font-size:.85rem;max-width:65ch}
 
   <div id="list"></div>
 
-  <footer>Film details come from each title's Wikipedia article or the other page linked in its entry. Entries marked CHECK are uncertain spine reads or titles with more than one possible version; confirm against the disc.</footer>
+  <footer>Genres, subgenres and ratings are from IMDb; other film details come from each title's Wikipedia article or the page linked in its entry. Searching a genre name (for example "comedy") matches that genre only; searching a subgenre (for example "dark comedy") matches that subgenre. Entries marked CHECK are uncertain spine reads or titles with more than one possible version; confirm against the disc.</footer>
 </div>
 
 <script src="collection.js"></script>
@@ -97,7 +101,7 @@ footer{margin-top:28px;color:var(--muted);font-size:.85rem;max-width:65ch}
 (function(){
 const ITEMS=(window.COLLECTION&&window.COLLECTION.items)||[];
 const LOCS=["All","Box 1","Box 2","Box 3","Box 4","Box 5","Box 6","Bookcase top","Bookcase bottom","Low shelf","Bin","Location TBD"];
-const st={q:"",loc:"All",fmt:"",dec:"",sort:"title",chk:false};
+const st={q:"",loc:"All",gen:"",fmt:"",dec:"",sort:"title",chk:false};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const art=t=>t.replace(/^(The|A|An) /i,"");
@@ -106,13 +110,22 @@ const dirOf=i=>{const d=[];i.films.forEach(f=>(f.directors||[]).forEach(x=>{if(!
 const needs=i=>i.check||i.films.some(f=>f.ambiguous)||i.title.startsWith("Unidentified");
 ITEMS.forEach(i=>{
   i._y=yearOf(i); i._d=dirOf(i);
-  i._hay=[i.title,i.location,i.format,i.notes,...i.films.flatMap(f=>[f.title,f.year,f.release_date,(f.directors||[]).join(" "),(f.cast||[]).join(" "),f.country,f.language,f.kind])].join(" ").toLowerCase();
+  i._g=(i.genres||[]).map(g=>g.toLowerCase());
+  i._t=[...new Set(i.films.flatMap(f=>(f.imdb&&f.imdb.tags)||[]).map(t=>t.toLowerCase()))];
+  i._r=Math.max(0,...i.films.map(f=>(f.imdb&&f.imdb.rating)||0))||null;
+  i._hay=[i.title,i.location,i.format,i.notes,...i.films.flatMap(f=>[f.title,f.year,f.release_date,(f.directors||[]).join(" "),(f.cast||[]).join(" "),f.country,f.language])].join(" ").toLowerCase();
 });
 // controls
-LOCS.forEach(L=>{if(L!=="All"&&!ITEMS.some(i=>i.location===L))return;const b=document.createElement("button");b.type="button";b.textContent=L;b.id="loc-"+L.replace(/\W/g,"");b.onclick=()=>{st.loc=L;render()};$("locs").appendChild(b)});
+LOCS.forEach(L=>{if(L==="All"||!ITEMS.some(i=>i.location===L))return;$("loc").insertAdjacentHTML("beforeend",`<option>${esc(L)}</option>`)});
+$("loc").onchange=e=>{st.loc=e.target.value;render()};
+const GEN=[...new Set(ITEMS.flatMap(i=>i.genres||[]))].sort();
+GEN.forEach(g=>$("gen").insertAdjacentHTML("beforeend",`<option>${esc(g)}</option>`));
+const GENL=GEN.map(g=>g.toLowerCase());
+const TAGL=[...new Set(ITEMS.flatMap(i=>i._t))];
 [...new Set(ITEMS.map(i=>i.format))].sort().forEach(f=>$("fmt").insertAdjacentHTML("beforeend",`<option>${esc(f)}</option>`));
 [...new Set(ITEMS.map(i=>i._y).filter(Boolean).map(y=>Math.floor(y/10)*10))].sort().forEach(d=>$("dec").insertAdjacentHTML("beforeend",`<option value="${d}">${d}s</option>`));
 $("q").oninput=e=>{st.q=e.target.value.toLowerCase().trim();render()};
+$("gen").onchange=e=>{st.gen=e.target.value;render()};
 $("fmt").onchange=e=>{st.fmt=e.target.value;render()};
 $("dec").onchange=e=>{st.dec=e.target.value;render()};
 $("sort").onchange=e=>{st.sort=e.target.value;render()};
@@ -126,21 +139,28 @@ function filmBlock(f,many){
   add("Released",f.release_date?esc(f.release_date):(f.year?esc(f.year):null));
   add("Runtime",f.runtime_min?esc(f.runtime_min+" min"):null);
   add("Country",[f.country,f.language].filter(Boolean).join(" · ")||null);
-  add("Type",f.kind?esc(f.kind):null);
+  add("Genre",(f.genres||[]).length?esc(f.genres.join(", "))+(f.genre_source==="IMDb"?"":' <span class="copy">(from Wikipedia description)</span>'):null);
+  if(f.imdb){add("IMDb",`<a href="https://www.imdb.com/title/${esc(f.imdb.id)}/" target="_blank" rel="noopener">${f.imdb.rating?esc(f.imdb.rating)+"/10":"page"}</a>${f.imdb.cert?" · "+esc(f.imdb.cert):""}`);add("Subgenres",f.imdb.tags&&f.imdb.tags.length?esc(f.imdb.tags.join(", ")):null);}
+  add("Described as",f.kind?esc(f.kind)+' <span class="copy">(Wikipedia)</span>':null);
   add("Note",f.notes?esc(f.notes):null);
   add("Source",f.source?`<a href="${esc(f.source)}" target="_blank" rel="noopener">${esc(f.source.replace(/^https?:\/\/(www\.)?/,"").slice(0,60))}</a>`:null);
   const head=many?`<h3>${esc(f.title||"Untitled")}${f.year?` <span class="copy">(${f.year})</span>`:""}${f.ambiguous?'<span class="flag">CHECK</span>':""}</h3>`:(f.ambiguous?'<h3><span class="flag" style="margin:0">CHECK</span> <span class="copy">version or details uncertain</span></h3>':"");
   return `<dl class="film">${head}${rows.join("")||'<dd class="copy">No details found yet.</dd>'}</dl>`;
 }
 function render(){
-  document.querySelectorAll("#locs button").forEach(b=>b.setAttribute("aria-pressed",String(b.textContent===st.loc)));
   $("chk").setAttribute("aria-pressed",String(st.chk));
-  const words=st.q.split(/\s+/).filter(Boolean);
-  let r=ITEMS.filter(i=>(st.loc==="All"||i.location===st.loc)&&(!st.fmt||i.format===st.fmt)&&(!st.dec||(i._y&&Math.floor(i._y/10)*10==st.dec))&&(!st.chk||needs(i))&&words.every(w=>i._hay.includes(w)));
+  // a query that names a genre matches that genre exactly (so "comedy" does not pull in "dark comedy")
+  let q=st.q, gq=null, tq=null;
+  if(TAGL.includes(q)&&!GENL.includes(q)){tq=q;q="";}
+  const hit=GENL.find(g=>q===g||q.startsWith(g+" ")||q.endsWith(" "+g));
+  if(hit){gq=hit;q=q===hit?"":(q.startsWith(hit+" ")?q.slice(hit.length+1):q.slice(0,-hit.length-1));}
+  const words=q.split(/\s+/).filter(Boolean).filter(w=>{const g=GENL.find(x=>x===w);if(g&&!gq){gq=g;return false}return true});
+  let r=ITEMS.filter(i=>(st.loc==="All"||i.location===st.loc)&&(!st.gen||(i.genres||[]).includes(st.gen))&&(!gq||i._g.includes(gq))&&(!tq||i._t.includes(tq))&&(!st.fmt||i.format===st.fmt)&&(!st.dec||(i._y&&Math.floor(i._y/10)*10==st.dec))&&(!st.chk||needs(i))&&words.every(w=>i._hay.includes(w)));
   const T=(a,b)=>art(a.title).localeCompare(art(b.title));
   r.sort((a,b)=>{
     if(st.sort==="year")return (a._y||9999)-(b._y||9999)||T(a,b);
     if(st.sort==="director")return ((a._d[0]||"~").split(" ").pop()).localeCompare((b._d[0]||"~").split(" ").pop())||T(a,b);
+    if(st.sort==="rating")return (b._r||0)-(a._r||0)||T(a,b);
     if(st.sort==="location")return LOCS.indexOf(a.location)-LOCS.indexOf(b.location)||T(a,b);
     return T(a,b);
   });
@@ -149,8 +169,8 @@ function render(){
     const by=i._d.length?esc(i._d.slice(0,3).join(", ")):(i.films[0]&&i.films[0].cast&&i.films[0].cast.length?esc(i.films[0].cast[0]):"");
     const yr=i._y?` <span class="yr">(${i._y}${many&&i.films.length?"–"+Math.max(...i.films.map(f=>f.year||0)):""})</span>`:"";
     const flag=needs(i)?'<span class="flag">CHECK</span>':"";
-    const extra=[i.qty>1?`${i.qty} copies`:"",i.notes].filter(Boolean).join(" · ");
-    return `<details><summary><span class="t">${esc(i.title)}${yr}${flag}</span><span class="tags"><span class="tag">${esc(i.location)}</span><span class="tag fmt">${esc(i.format)}</span></span><span class="by">${by}</span></summary><div class="body">${extra?`<div class="copy">${esc(extra)}</div>`:""}${i.films.map(f=>filmBlock(f,many)).join("")||'<div class="copy">No film details: title not yet identified.</div>'}</div></details>`;
+    const extra=["Location: "+i.location,i.qty>1?`${i.qty} copies`:"",i.notes,(!i.films.length||many)&&i.genres&&i.genres.length?"Genre: "+i.genres.join(", "):""].filter(Boolean).join(" · ");
+    return `<details><summary><span class="t">${esc(i.title)}${yr}${flag}</span><span class="tags"><span class="tag fmt">${esc(i.format)}</span>${i._r?`<span class="tag">IMDb ${esc(i._r)}</span>`:""}</span><span class="by">${by}${i.genres&&i.genres.length?` <span class="gtag">· ${esc(i.genres.join(", "))}</span>`:""}</span></summary><div class="body">${extra?`<div class="copy">${esc(extra)}</div>`:""}${i.films.map(f=>filmBlock(f,many)).join("")||'<div class="copy">No film details: title not yet identified.</div>'}</div></details>`;
   }).join(""):'<p class="empty">Nothing matches. Clear the search or pick another location.</p>';
   const discs=ITEMS.filter(i=>!i.title.startsWith("Unidentified")).reduce((s,i)=>s+i.qty,0);
   const films=ITEMS.reduce((s,i)=>s+i.films.length,0);
