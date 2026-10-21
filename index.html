@@ -59,6 +59,7 @@ summary::-webkit-details-marker{display:none}
 .film a{color:var(--accent)}
 .copy{font-size:.9rem;color:var(--muted)}
 .plot{grid-column:1 / -1;font-size:.92rem;line-height:1.4;max-width:70ch;padding-top:2px}
+.rank{font-family:var(--display);color:var(--accent);font-weight:700}
 .gtag{font-family:var(--display);font-size:.82rem;letter-spacing:.02em}
 .empty{color:var(--muted);padding:24px 4px}
 footer{margin-top:28px;color:var(--muted);font-size:.85rem;max-width:65ch}
@@ -84,16 +85,16 @@ footer{margin-top:28px;color:var(--muted);font-size:.85rem;max-width:65ch}
       <label class="sl" for="sort">Sort</label>
       <select id="sort">
         <option value="title">Title</option><option value="year">Year</option>
-        <option value="director">Director</option><option value="rating">IMDb rating</option><option value="location">Location</option>
+        <option value="director">Director</option><option value="bookcase">Bookcase rank</option><option value="rating">IMDb rating</option><option value="location">Location</option>
       </select>
-      <button type="button" class="toggle" id="top" aria-pressed="false">Top 175 by IMDb</button>
+      <button type="button" class="toggle" id="top" aria-pressed="false">Bookcase 175</button>
       <button type="button" class="toggle" id="chk" aria-pressed="false">Needs checking</button>
     </div>
   </div>
 
   <div id="list"></div>
 
-  <footer>Genres, subgenres and ratings are from IMDb, and plot summaries are written from IMDb's synopses; other film details come from each title's Wikipedia article or the page linked in its entry. Searching a genre name (for example "comedy") matches that genre only; searching a subgenre (for example "dark comedy") matches that subgenre. Entries marked CHECK are uncertain spine reads or titles with more than one possible version; confirm against the disc.</footer>
+  <footer>Bookcase 175 ranks AFI-listed films first (100 Movies, then the genre lists such as 100 Laughs and 100 Thrills), then Metacritic score, with the IMDb rating used only where no Metacritic score exists; one copy per film, best format kept. Genres, subgenres and ratings are from IMDb, and plot summaries are written from IMDb's synopses; other film details come from each title's Wikipedia article or the page linked in its entry. Searching a genre name (for example "comedy") matches that genre only; searching a subgenre (for example "dark comedy") matches that subgenre. Entries marked CHECK are uncertain spine reads or titles with more than one possible version; confirm against the disc.</footer>
 </div>
 
 <script src="collection.js"></script>
@@ -129,10 +130,8 @@ $("fmt").onchange=e=>{st.fmt=e.target.value;render()};
 $("dec").onchange=e=>{st.dec=e.target.value;render()};
 $("sort").onchange=e=>{st.sort=e.target.value;render()};
 $("chk").onclick=()=>{st.chk=!st.chk;render()};
-$("top").onclick=()=>{st.top=!st.top;if(st.top){st.sort="rating";$("sort").value="rating"}render()};
-const RANKED=ITEMS.filter(i=>i._r).sort((a,b)=>b._r-a._r);
-const CUT=RANKED.length>=175?RANKED[174]._r:0;
-RANKED.forEach((i,k)=>i._rank=k+1);
+$("top").onclick=()=>{st.top=!st.top;if(st.top){st.sort="bookcase";$("sort").value="bookcase"}render()};
+
 
 function filmBlock(f,many){
   const rows=[];
@@ -144,6 +143,8 @@ function filmBlock(f,many){
   add("Runtime",f.runtime_min?esc(f.runtime_min+" min"):null);
   add("Country",[f.country,f.language].filter(Boolean).join(" · ")||null);
   add("Genre",(f.genres||[]).length?esc(f.genres.join(", "))+(f.genre_source==="IMDb"?"":' <span class="copy">(from Wikipedia description)</span>'):null);
+  add("AFI",f.afi&&f.afi.length?esc(f.afi.join("; ")):null);
+  add("Metacritic",f.metascore!=null?esc(f.metascore):null);
   if(f.imdb){add("IMDb",`<a href="https://www.imdb.com/title/${esc(f.imdb.id)}/" target="_blank" rel="noopener">${f.imdb.rating?esc(f.imdb.rating)+"/10":"page"}</a>${f.imdb.cert?" · "+esc(f.imdb.cert):""}`);add("Subgenres",f.imdb.tags&&f.imdb.tags.length?esc(f.imdb.tags.join(", ")):null);}
   add("Described as",f.kind?esc(f.kind)+' <span class="copy">(Wikipedia)</span>':null);
   add("Note",f.notes?esc(f.notes):null);
@@ -161,11 +162,12 @@ function render(){
   const hit=GENL.find(g=>q===g||q.startsWith(g+" ")||q.endsWith(" "+g));
   if(hit){gq=hit;q=q===hit?"":(q.startsWith(hit+" ")?q.slice(hit.length+1):q.slice(0,-hit.length-1));}
   const words=q.split(/\s+/).filter(Boolean).filter(w=>{const g=GENL.find(x=>x===w);if(g&&!gq){gq=g;return false}return true});
-  let r=ITEMS.filter(i=>(true)&&(!st.gen||(i.genres||[]).includes(st.gen))&&(!gq||i._g.includes(gq))&&(!tq||i._t.includes(tq))&&(!st.fmt||i.format===st.fmt)&&(!st.dec||(i._y&&Math.floor(i._y/10)*10==st.dec))&&(!st.chk||needs(i))&&(!st.top||(i._r&&i._r>=CUT))&&words.every(w=>i._hay.includes(w)));
+  let r=ITEMS.filter(i=>(true)&&(!st.gen||(i.genres||[]).includes(st.gen))&&(!gq||i._g.includes(gq))&&(!tq||i._t.includes(tq))&&(!st.fmt||i.format===st.fmt)&&(!st.dec||(i._y&&Math.floor(i._y/10)*10==st.dec))&&(!st.chk||needs(i))&&(!st.top||(i.bookcase&&i.bookcase<=175))&&words.every(w=>i._hay.includes(w)));
   const T=(a,b)=>art(a.title).localeCompare(art(b.title));
   r.sort((a,b)=>{
     if(st.sort==="year")return (a._y||9999)-(b._y||9999)||T(a,b);
     if(st.sort==="director")return ((a._d[0]||"~").split(" ").pop()).localeCompare((b._d[0]||"~").split(" ").pop())||T(a,b);
+    if(st.sort==="bookcase")return (a.bookcase||9999)-(b.bookcase||9999)||T(a,b);
     if(st.sort==="rating")return (b._r||0)-(a._r||0)||T(a,b);
     if(st.sort==="location")return LOCS.indexOf(a.location)-LOCS.indexOf(b.location)||T(a,b);
     return T(a,b);
@@ -175,8 +177,8 @@ function render(){
     const by=i._d.length?esc(i._d.slice(0,3).join(", ")):(i.films[0]&&i.films[0].cast&&i.films[0].cast.length?esc(i.films[0].cast[0]):"");
     const yr=i._y?` <span class="yr">(${i._y}${many&&i.films.length?"–"+Math.max(...i.films.map(f=>f.year||0)):""})</span>`:"";
     const flag=needs(i)?'<span class="flag">CHECK</span>':"";
-    const extra=[i.qty>1?`${i.qty} copies`:"",i.notes,(!i.films.length||many)&&i.genres&&i.genres.length?"Genre: "+i.genres.join(", "):""].filter(Boolean).join(" · ");
-    return `<details><summary><span class="t">${esc(i.title)}${yr}${flag}</span><span class="tags"><span class="tag fmt">${esc(i.format)}</span>${i._r?`<span class="tag">IMDb ${esc(i._r)}</span>`:""}</span><span class="by">${by}${i.genres&&i.genres.length?` <span class="gtag">· ${esc(i.genres.join(", "))}</span>`:""}</span>${plotOf(i)?`<span class="plot">${esc(plotOf(i))}</span>`:""}</summary><div class="body"><dl class="film"><dt>Location</dt><dd>${esc(i.location)}</dd></dl>${extra?`<div class="copy">${esc(extra)}</div>`:""}${i.films.map(f=>filmBlock(f,many)).join("")||'<div class="copy">No film details: title not yet identified.</div>'}</div></details>`;
+    const extra=[i.bookcase&&i.bookcase<=175?`Bookcase pick #${i.bookcase}`:"",i.dup_of?`Not in bookcase 175: ${i.dup_of}`:"",i.qty>1?`${i.qty} copies`:"",i.notes,(!i.films.length||many)&&i.genres&&i.genres.length?"Genre: "+i.genres.join(", "):""].filter(Boolean).join(" · ");
+    return `<details><summary><span class="t">${i.bookcase&&i.bookcase<=175?`<span class="rank">#${i.bookcase}</span> `:""}${esc(i.title)}${yr}${flag}</span><span class="tags"><span class="tag fmt">${esc(i.format)}</span>${i._r?`<span class="tag">IMDb ${esc(i._r)}</span>`:""}</span><span class="by">${by}${i.genres&&i.genres.length?` <span class="gtag">· ${esc(i.genres.join(", "))}</span>`:""}</span>${plotOf(i)?`<span class="plot">${esc(plotOf(i))}</span>`:""}</summary><div class="body"><dl class="film"><dt>Location</dt><dd>${esc(i.location)}</dd></dl>${extra?`<div class="copy">${esc(extra)}</div>`:""}${i.films.map(f=>filmBlock(f,many)).join("")||'<div class="copy">No film details: title not yet identified.</div>'}</div></details>`;
   }).join(""):'<p class="empty">Nothing matches. Clear the search or pick another location.</p>';
   const discs=ITEMS.filter(i=>!i.title.startsWith("Unidentified")).reduce((s,i)=>s+i.qty,0);
   const films=ITEMS.reduce((s,i)=>s+i.films.length,0);
