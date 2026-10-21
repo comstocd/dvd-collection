@@ -9,6 +9,7 @@
 <meta name="apple-mobile-web-app-title" content="DVDs">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
 <style>
@@ -78,6 +79,15 @@ footer{margin-top:28px;color:var(--muted);font-size:.85rem;max-width:65ch}
 @media (max-width:480px){.film{grid-template-columns:1fr}.film dt{padding-top:6px}}
 @media (min-width:700px){body{font-size:17px}.film{grid-template-columns:130px minmax(0,1fr)}h1{font-size:2.4rem}}
 @media (pointer:coarse){select,.toggle{min-height:44px;padding:8px 14px;font-size:1rem}select{padding:8px 10px}#q{padding:12px 14px;font-size:17px}summary{padding:14px 6px}.film a{display:inline-block;padding:4px 0}}
+#upd{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));-webkit-transform:translateX(-50%);transform:translateX(-50%);z-index:20;display:none;align-items:center;background:var(--fg);color:var(--bg);border-radius:999px;padding:6px 6px 6px 16px;box-shadow:0 4px 18px rgba(0,0,0,.25);font-family:var(--display);font-size:.95rem;white-space:nowrap}
+#upd.on{display:-webkit-flex;display:flex}
+#upd>*+*{margin-left:10px}
+#upd button{font:inherit;border:0;border-radius:999px;padding:8px 14px;min-height:40px;cursor:pointer;-webkit-appearance:none}
+#updGo{background:var(--accent);color:#fff;font-weight:700}
+#updLater{background:transparent;color:var(--bg);opacity:.75}
+#off{display:none;font-family:var(--display);font-size:.8rem;letter-spacing:.04em;color:var(--flag);background:var(--flagbg);border-radius:4px;padding:1px 6px;margin-left:8px;vertical-align:2px}
+#off.on{display:inline-block}
+.ver{font-family:var(--display);font-size:.85rem;letter-spacing:.03em;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
 </style>
 </head>
@@ -85,6 +95,7 @@ footer{margin-top:28px;color:var(--muted);font-size:.85rem;max-width:65ch}
 <div class="wrap">
   <h1>DVD Collection</h1>
   <p class="sub">Every disc, where it lives, and who made it.</p>
+  <p class="sub ver"><span id="ver"></span><span id="off">Offline: saved copy</span></p>
   <div class="stats" id="stats"></div>
 
   <div class="bar">
@@ -107,6 +118,7 @@ footer{margin-top:28px;color:var(--muted);font-size:.85rem;max-width:65ch}
   </div>
 
   <div id="list"></div>
+  <div id="upd" role="status" aria-live="polite"><span>Update available</span><button type="button" id="updGo">Update now</button><button type="button" id="updLater">Later</button></div>
 
   <footer>Bookcase 175 ranks AFI-listed films first (100 Movies, then the genre lists such as 100 Laughs and 100 Thrills), then Metacritic score, with the IMDb rating used only where no Metacritic score exists; one copy per film, best format kept. Genres, subgenres and ratings are from IMDb, and plot summaries are written from IMDb's synopses; other film details come from each title's Wikipedia article or the page linked in its entry. Searching a genre name (for example "comedy") matches that genre only; searching a subgenre (for example "dark comedy") matches that subgenre. Entries marked CHECK are uncertain spine reads or titles with more than one possible version; confirm against the disc.</footer>
 </div>
@@ -199,6 +211,31 @@ function render(){
   $("stats").innerHTML=`<span><b>${discs}</b> items</span><span><b>${films}</b> films with details</span><span><b>${ITEMS.filter(needs).length}</b> to check</span><span>Showing <b>${r.length}</b></span>`;
 }
 render();
+const C=window.COLLECTION||{};
+$("ver").textContent="Build "+(C.build||"?")+" · updated "+(C.updated||"");
+})();
+</script>
+<script>
+(function(){
+  var off=document.getElementById("off"),upd=document.getElementById("upd");
+  function net(){off.className=navigator.onLine?"":"on"}
+  window.addEventListener("online",net);window.addEventListener("offline",net);net();
+  if(!("serviceWorker" in navigator)||location.hostname!=="comstocd.github.io")return;
+  var waiting=null,refreshing=false;
+  function show(w){waiting=w;upd.className="on"}
+  function watch(w){w.addEventListener("statechange",function(){if(w.state==="installed"&&navigator.serviceWorker.controller)show(w)})}
+  navigator.serviceWorker.register("sw.js",{scope:"./"}).then(function(reg){
+    if(reg.waiting&&navigator.serviceWorker.controller)show(reg.waiting);
+    if(reg.installing)watch(reg.installing);
+    reg.addEventListener("updatefound",function(){if(reg.installing)watch(reg.installing)});
+    function check(){if(navigator.onLine)reg.update().catch(function(){})}
+    check();
+    document.addEventListener("visibilitychange",function(){if(!document.hidden)check()});
+    setInterval(check,3600000);
+  }).catch(function(){});
+  navigator.serviceWorker.addEventListener("controllerchange",function(){if(!refreshing){refreshing=true;location.reload()}});
+  document.getElementById("updGo").onclick=function(){if(waiting)waiting.postMessage({type:"SKIP_WAITING"});else location.reload()};
+  document.getElementById("updLater").onclick=function(){upd.className="";setTimeout(function(){if(waiting)upd.className="on"},3600000)};
 })();
 </script>
 </body>
