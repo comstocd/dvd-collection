@@ -220,7 +220,7 @@ $("ver").textContent="Build "+(C.build||"?")+" · updated "+(C.updated||"");
   var off=document.getElementById("off"),upd=document.getElementById("upd");
   function net(){off.className=navigator.onLine?"":"on"}
   window.addEventListener("online",net);window.addEventListener("offline",net);net();
-  if(!("serviceWorker" in navigator)||location.hostname!=="comstocd.github.io")return;
+  if(!("serviceWorker" in navigator)||(location.hostname!=="comstocd.github.io"&&location.hostname!=="localhost"))return;
   var waiting=null,refreshing=false;
   function show(w){waiting=w;upd.className="on"}
   function watch(w){w.addEventListener("statechange",function(){if(w.state==="installed"&&navigator.serviceWorker.controller)show(w)})}
@@ -233,8 +233,9 @@ $("ver").textContent="Build "+(C.build||"?")+" · updated "+(C.updated||"");
     document.addEventListener("visibilitychange",function(){if(!document.hidden)check()});
     setInterval(check,3600000);
   }).catch(function(){});
-  navigator.serviceWorker.addEventListener("controllerchange",function(){if(!refreshing){refreshing=true;location.reload()}});
-  document.getElementById("updGo").onclick=function(){if(waiting)waiting.postMessage({type:"SKIP_WAITING"});else location.reload()};
+  var asked=false;
+  navigator.serviceWorker.addEventListener("controllerchange",function(){if(asked&&!refreshing){refreshing=true;location.reload()}});
+  document.getElementById("updGo").onclick=function(){asked=true;if(waiting)waiting.postMessage({type:"SKIP_WAITING"});else location.reload()};
   document.getElementById("updLater").onclick=function(){upd.className="";setTimeout(function(){if(waiting)upd.className="on"},3600000)};
 })();
 </script>
