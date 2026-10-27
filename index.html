@@ -88,6 +88,19 @@ footer{margin-top:28px;color:var(--muted);font-size:.85rem;max-width:65ch}
 #off{display:none;font-family:var(--display);font-size:.8rem;letter-spacing:.04em;color:var(--flag);background:var(--flagbg);border-radius:4px;padding:1px 6px;margin-left:8px;vertical-align:2px}
 #off.on{display:inline-block}
 .ver{font-family:var(--display);font-size:.85rem;letter-spacing:.03em;color:var(--muted)}
+#pickBtn{margin-top:14px;font-family:var(--display);font-size:1rem;font-weight:700;letter-spacing:.02em;background:var(--accent);color:#fff;border:0;border-radius:999px;padding:10px 20px;min-height:44px;cursor:pointer;-webkit-appearance:none}
+#pk{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:30;background:rgba(0,0,0,.45);padding:16px;overflow:auto;-webkit-overflow-scrolling:touch}
+#pk.on{display:block}
+.pkCard{max-width:560px;margin:10vh auto 0;background:var(--panel);color:var(--fg);border-radius:12px;padding:22px 22px 16px;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.pkCard h2{font-family:var(--display);font-size:1.6rem;margin:0 0 4px}
+.pkCard h2 .yr{font-weight:400;color:var(--muted)}
+.pkMeta,.pkWhy{color:var(--muted);font-size:.92rem;margin:0 0 10px}
+.pkPlot{margin:0 0 10px}
+.pkWhere{margin:0 0 10px}
+.pkWhy{font-family:var(--display);letter-spacing:.02em;border-top:1px solid var(--line);padding-top:10px}
+.pkBtns{display:flex;flex-wrap:wrap;margin-top:6px}
+.pkBtns button{font-family:var(--display);font-size:.95rem;border:1px solid var(--line);background:var(--chip);color:var(--fg);border-radius:999px;padding:8px 16px;min-height:44px;margin:6px 8px 0 0;cursor:pointer;-webkit-appearance:none}
+#pkAgain{background:var(--accent);border-color:var(--accent);color:#fff}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
 </style>
 </head>
@@ -97,6 +110,7 @@ footer{margin-top:28px;color:var(--muted);font-size:.85rem;max-width:65ch}
   <p class="sub">Every disc, where it lives, and who made it.</p>
   <p class="sub ver"><span id="ver"></span><span id="off">Offline: saved copy</span></p>
   <div class="stats" id="stats"></div>
+  <button type="button" id="pickBtn">Pick a film for right now</button>
 
   <div class="bar">
     <input id="q" type="search" placeholder="Search title, director, actor, year, genre or subgenre…" aria-label="Search the collection">
@@ -118,6 +132,7 @@ footer{margin-top:28px;color:var(--muted);font-size:.85rem;max-width:65ch}
   </div>
 
   <div id="list"></div>
+  <div id="pk" role="dialog" aria-modal="true" aria-label="Film pick"><div class="pkCard"><div id="pkBody"></div><div class="pkBtns"><button type="button" id="pkFind">Show in list</button><button type="button" id="pkAgain">Pick another</button><button type="button" id="pkClose">Close</button></div></div></div>
   <div id="upd" role="status" aria-live="polite"><span>Update available</span><button type="button" id="updGo">Update now</button><button type="button" id="updLater">Later</button></div>
 
   <footer>Bookcase 175 ranks AFI-listed films first (100 Movies, then the genre lists such as 100 Laughs and 100 Thrills), then Metacritic score, with the IMDb rating used only where no Metacritic score exists; one copy per film, best format kept. Genres, subgenres and ratings are from IMDb, and plot summaries are written from IMDb's synopses; other film details come from each title's Wikipedia article or the page linked in its entry. Searching a genre name (for example "comedy") matches that genre only; searching a subgenre (for example "dark comedy") matches that subgenre. Entries marked CHECK are uncertain spine reads or titles with more than one possible version; confirm against the disc.</footer>
@@ -213,6 +228,123 @@ function render(){
 render();
 const C=window.COLLECTION||{};
 $("ver").textContent="Build "+(C.build||"?")+" · updated "+(C.updated||"");
+})();
+</script>
+<script>
+/* Film picker: scores every film on date, time of day and current weather, then draws at random from the best matches.
+   ES2017, no optional chaining: runs on iOS 12 Safari. Weather from Open-Meteo (no key); skipped when offline or location is refused. */
+(function(){
+  var C=window.COLLECTION||{items:[]},$=function(id){return document.getElementById(id)};
+  var esc=function(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
+  function ls(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k));localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
+  // pool: one entry per film; skip lectures, audio, shorts and unidentified discs
+  var POOL=[],BYID={};
+  C.items.forEach(function(it){
+    if(/^Unidentified|^HHMI|^Centerpointe|^Empty/.test(it.title))return;
+    if((it.genres||[]).some(function(g){return g==="Educational"||g==="Audio"}))return;
+    it.films.forEach(function(f){
+      var im=f.imdb||{},tags=im.tags||[];
+      if(tags.indexOf("Short")>=0||(f.runtime_min&&f.runtime_min<45))return;
+      if(/television (comedy |variety )?series|workshop|dog-training|compilation/i.test(f.kind||""))return;
+      var e={it:it,f:f,g:f.genres||it.genres||[],t:tags,rt:f.runtime_min||110,q:f.metascore!=null?f.metascore/10:(im.rating||6.5)};
+      var key=im.id||f.title,old=BYID[key];
+      // one entry per film: prefer the bookcase copy, then any disc over digital
+      var rank=function(x){return (x.it.bookcase?2:0)+(x.it.format!=="Digital"?1:0)};
+      if(!old){BYID[key]=e;POOL.push(e)}else if(rank(e)>rank(old)){POOL[POOL.indexOf(old)]=e;BYID[key]=e}
+    });
+  });
+  function has(e,a){for(var i=0;i<a.length;i++)if(e.g.indexOf(a[i])>=0||e.t.indexOf(a[i])>=0)return true;return false}
+  function named(e,re){return re.test(e.f.title||"")}
+  // date rules: [test(date), label, weight(entry)]
+  function md(d){return (d.getMonth()+1)*100+d.getDate()}
+  function nthDow(d,month,dow,n){if(d.getMonth()!==month||d.getDay()!==dow)return false;return Math.ceil(d.getDate()/7)===n}
+  function lastDow(d,month,dow){if(d.getMonth()!==month||d.getDay()!==dow)return false;var x=new Date(d);x.setDate(d.getDate()+7);return x.getMonth()!==month}
+  var DATES=[
+    [function(d){var m=md(d);return m>=1201&&m<=1226},"Christmas season",function(e){return (has(e,["Holiday","Holiday Comedy","Holiday Family","Holiday Romance"])?6:0)+(named(e,/Christmas|Elf|Die Hard/)?4:0)}],
+    [function(d){var m=md(d);return m>=1227||m<=101},"New Year's",function(e){return has(e,["Comedy","Romantic Comedy"])?2:0}],
+    [function(d){return md(d)===202},"Groundhog Day",function(e){return named(e,/Groundhog/)?20:0}],
+    [function(d){var m=md(d);return m>=212&&m<=214},"Valentine's Day",function(e){return has(e,["Romance","Romantic Comedy","Feel-Good Romance"])?5:0}],
+    [function(d){return md(d)===504},"May the 4th",function(e){return has(e,["Star Wars"])?12:has(e,["Space Sci-Fi"])?3:0}],
+    [function(d){return lastDow(d,4,1)},"Memorial Day",function(e){return has(e,["War"])?6:0}],
+    [function(d){return md(d)===606},"D-Day anniversary",function(e){return named(e,/Longest Day|Saving Private Ryan|Battlefront|Big Red One/)?14:has(e,["War"])?3:0}],
+    [function(d){var m=md(d);return m>=701&&m<=704},"Fourth of July",function(e){return named(e,/Independence Day|Jaws|All the President|Right Stuff|Top Gun/)?8:0}],
+    [function(d){var m=md(d);return m>=1015&&m<=1031},"Halloween season",function(e){return (has(e,["Horror"])?6:0)+(named(e,/Rocky Horror|Night of the Living Dead|Shaun of the Dead|Exorcist|Poltergeist/)?3:0)}],
+    [function(d){return md(d)===1111},"Veterans Day",function(e){return has(e,["War"])?6:0}],
+    [function(d){return nthDow(d,10,4,4)},"Thanksgiving",function(e){return has(e,["Family","Feel-Good Romance"])?4:0}],
+    [function(d){return md(d)===1207},"Pearl Harbor Day",function(e){return named(e,/Tora/)?20:0}],
+    [function(d){var m=md(d);return m>=422&&m<=430},"NFL Draft week",function(e){return named(e,/Draft Day/)?10:0}]
+  ];
+  function season(d){var m=d.getMonth();return m<2||m===11?"winter":m<5?"spring":m<8?"summer":"autumn"}
+  var SEASON={winter:function(e){return has(e,["Epic","Fantasy Epic","Historical Epic"])?1.5:0},
+    summer:function(e){return has(e,["Adventure","Action","Comedy","Sea Adventure"])?1.5:0},
+    autumn:function(e){return has(e,["Mystery","Thriller","Film Noir"])?1.5:0},
+    spring:function(e){return has(e,["Romance","Comedy","Sport"])?1.5:0}};
+  // time of day, with weekend nights allowed to run long
+  function slot(d){var h=d.getHours();return h<5?"late night":h<11?"morning":h<17?"afternoon":h<21?"evening":"late night"}
+  function timeScore(e,s,weekend,h){
+    var sc=0;
+    if(s==="morning"){if(has(e,["Animation","Family","Comedy","Musical"]))sc+=3;if(has(e,["Horror","Film Noir"]))sc-=6;if(e.rt>130)sc-=3}
+    if(s==="afternoon"){if(has(e,["Adventure","Western","War","Epic","Family"]))sc+=2.5;if(weekend&&e.rt>150)sc+=1.5;if(has(e,["Horror"]))sc-=3}
+    if(s==="evening"){if(has(e,["Drama","Crime","Thriller","Sci-Fi","Mystery"]))sc+=2.5;if(!weekend&&e.rt>150)sc-=2}
+    if(s==="late night"){if(has(e,["Horror","Thriller","Film Noir","Mystery"]))sc+=3;if(e.rt>140)sc-=3;if(h>=23||h<5){if(e.rt>115)sc-=3}if(weekend&&named(e,/Rocky Horror/))sc+=4}
+    return sc;
+  }
+  // weather: WMO codes from Open-Meteo
+  function wxLabel(w){var c=w.code;return c>=95?"thunderstorms":c>=85?"snow showers":c>=80?"rain showers":c>=71?"snow":c>=61?"rain":c>=51?"drizzle":c>=45?"fog":c>=3?"overcast":c>=1?"partly cloudy":"clear"}
+  function wxScore(e,w){
+    if(!w)return 0;var c=w.code,sc=0,t=w.temp;
+    if(c>=95){if(has(e,["Disaster","Thriller","Horror"]))sc+=4;if(named(e,/Twister/))sc+=10}
+    else if(c>=71&&c<=77||c===85||c===86){if(has(e,["Holiday","Family","Epic","Mountain Adventure"]))sc+=3;if(named(e,/Shining|Everest|Fargo/))sc+=6}
+    else if(c>=51&&c<=67||c>=80&&c<=82){if(has(e,["Film Noir","Mystery","Drama","Crime"]))sc+=3;if(has(e,["Epic"]))sc+=1.5}
+    else if(c===45||c===48){if(has(e,["Mystery","Film Noir","Horror","Suspense Mystery"]))sc+=3.5}
+    else if(c<=2){if(!w.day&&has(e,["Space Sci-Fi","Sci-Fi"]))sc+=3;if(w.day&&has(e,["Adventure","Comedy","Western"]))sc+=2}
+    if(t!=null&&t>=85){if(named(e,/Jaws/))sc+=6;if(has(e,["Sea Adventure","Desert Adventure","Summer"]))sc+=2}
+    if(t!=null&&t<=32){if(has(e,["Epic","Holiday"]))sc+=2;if(named(e,/Lawrence of Arabia/))sc+=3}
+    if(w.wind>=25&&named(e,/Twister/))sc+=6;
+    return sc;
+  }
+  function getWeather(cb){
+    var cached=ls("dvd-wx");if(cached&&Date.now()-cached.at<30*60000)return cb(cached.w);
+    if(!navigator.onLine||!navigator.geolocation)return cb(null);
+    var done=false,fin=function(w){if(!done){done=true;cb(w)}};setTimeout(function(){fin(null)},12000);
+    navigator.geolocation.getCurrentPosition(function(p){
+      var u="https://api.open-meteo.com/v1/forecast?latitude="+p.coords.latitude.toFixed(2)+"&longitude="+p.coords.longitude.toFixed(2)+"&current=temperature_2m,weather_code,is_day,wind_speed_10m&temperature_unit=fahrenheit&wind_speed_unit=mph";
+      fetch(u).then(function(r){return r.json()}).then(function(j){var c=j.current||{};var w={code:c.weather_code,temp:c.temperature_2m,day:c.is_day===1,wind:c.wind_speed_10m};ls("dvd-wx",{at:Date.now(),w:w});fin(w)}).catch(function(){fin(null)});
+    },function(){fin(null)},{timeout:10000,maximumAge:3600000});
+  }
+  function pick(w){
+    var d=new Date(),wk=d.getDay()===5||d.getDay()===6,s=slot(d),h=d.getHours(),why=[];
+    var active=DATES.filter(function(r){return r[0](d)});
+    active.forEach(function(r){why.push(r[1])});
+    var se=season(d);why.push(["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][d.getDay()]+" "+s);
+    if(w)why.push(wxLabel(w)+(w.temp!=null?", "+Math.round(w.temp)+"°F":""));else why.push("no weather (offline or location off)");
+    var recent=ls("dvd-recent")||[];
+    var scored=POOL.map(function(e){
+      var sc=e.q*0.6+timeScore(e,s,wk,h)+wxScore(e,w)+SEASON[se](e);
+      active.forEach(function(r){sc+=r[2](e)});
+      if(recent.indexOf(e.f.title)>=0)sc-=8;
+      return {e:e,s:sc};
+    }).sort(function(a,b){return b.s-a.s}).slice(0,15);
+    // weighted draw from the top 15 so repeat presses vary
+    var min=scored[scored.length-1].s,tot=0;scored.forEach(function(x){x.w=Math.pow(x.s-min+1,2);tot+=x.w});
+    var r=Math.random()*tot,ch=scored[0];for(var i=0;i<scored.length;i++){r-=scored[i].w;if(r<=0){ch=scored[i];break}}
+    recent.unshift(ch.e.f.title);ls("dvd-recent",recent.slice(0,12));
+    show(ch.e,why);
+  }
+  function show(e,why){
+    var f=e.f,it=e.it,im=f.imdb||{};
+    $("pkBody").innerHTML='<h2>'+esc(f.title)+(f.year?' <span class="yr">('+f.year+')</span>':"")+'</h2>'+
+      '<p class="pkMeta">'+esc((f.directors||[]).slice(0,2).join(", "))+(f.runtime_min?" · "+f.runtime_min+" min":"")+(im.rating?" · IMDb "+im.rating:"")+'</p>'+
+      (f.plot?'<p class="pkPlot">'+esc(f.plot)+'</p>':"")+
+      '<p class="pkWhere"><b>Where:</b> '+esc(it.location)+(it.films.length>1?" (in "+esc(it.title)+")":"")+" · "+esc(it.format)+'</p>'+
+      '<p class="pkWhy">Picked for: '+esc(why.join(" · "))+'</p>';
+    $("pkFind").onclick=function(){closeP();var q=$("q");q.value=f.title;q.dispatchEvent(new Event("input"));setTimeout(function(){var d=document.querySelector("#list details");if(d){d.open=true;d.scrollIntoView()}},350)};
+    $("pk").className="on";
+  }
+  function closeP(){$("pk").className=""}
+  function go(){$("pkBody").innerHTML='<p class="pkWhy">Checking the weather…</p>';$("pk").className="on";getWeather(pick)}
+  $("pickBtn").onclick=go;$("pkAgain").onclick=go;$("pkClose").onclick=closeP;
+  $("pk").onclick=function(ev){if(ev.target===$("pk"))closeP()};
 })();
 </script>
 <script>

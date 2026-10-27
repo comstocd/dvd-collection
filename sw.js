@@ -1,7 +1,7 @@
 /* DVD Collection: service worker (offline cache + update detection).
    deploy.sh stamps BUILD on every release; a changed BUILD is what tells devices an update exists.
    Written in ES2017 with no optional chaining so it runs on iOS 12 Safari. */
-var BUILD = 5;
+var BUILD = 6;
 var CACHE = 'dvd-collection-b' + BUILD;
 var BASE = '/dvd-collection/';
 var FILES = ['', 'index.html', 'collection.js', 'apple-touch-icon.png', 'manifest.json'];
